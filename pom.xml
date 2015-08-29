@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) 2015 Wave Software
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+    </dependencies>
+
+    <parent>
+        <groupId>org.sonarsource.parent</groupId>
+        <artifactId>parent</artifactId>
+        <version>23</version>
+    </parent>
+
+    <groupId>pl.wavesoftware</groupId>
+    <artifactId>sonar-regex</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>SonarQube Regex</name>
+    <inceptionYear>2015</inceptionYear>
+    <organization>
+        <name>Wave Software</name>
+        <url>https://wavesoftware.pl</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache-2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>cardil</id>
+            <name>Krzysztof Suszyński</name>
+            <organization>WaveSoftware</organization>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>sonar-regex-checks</module>
+        <module>sonar-regex-plugin</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:git@github.com:wavesoftware/sonar-regex.git</connection>
+        <developerConnection>scm:git:git@github.com:wavesoftware/sonar-regex.git</developerConnection>
+        <url>https://github.com/wavesoftware/sonar-regex</url>
+        <tag>HEAD</tag>
+    </scm>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/wavesoftware/sonar-regex/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>TravisCI</system>
+        <url>https://travis-ci.org/wavesoftware/sonar-regex</url>
+    </ciManagement>
+
+    <properties>
+        <license.title>SonarQube Regex</license.title>
+
+        <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+
+        <sonar.version>4.5.4</sonar.version>
+        <sonar.java.version>[3.5,)</sonar.java.version>
+        <sslr.version>1.21</sslr.version>
+        <jacoco.previous.version>0.7.4.201502262128</jacoco.previous.version>
+        <jacoco.version>0.7.5.201505241946</jacoco.version>
+        <asm.version>5.0.3</asm.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.codehaus.sonar</groupId>
+                <artifactId>sonar-plugin-api</artifactId>
+                <version>${sonar.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.sonar</groupId>
+                <artifactId>sonar-deprecated</artifactId>
+                <version>${sonar.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.sonar.sslr-squid-bridge</groupId>
+                <artifactId>sslr-squid-bridge</artifactId>
+                <version>2.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.sonarsource.java</groupId>
+                <artifactId>java-squid</artifactId>
+                <version>${sonar.java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.2</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>0.9.30</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>15.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.sonarsource.sslr</groupId>
+                <artifactId>sslr-core</artifactId>
+                <version>${sslr.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.sonarsource.sslr</groupId>
+                <artifactId>sslr-testing-harness</artifactId>
+                <version>${sslr.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>2.1.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.9.5</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.mycila.maven-license-plugin</groupId>
+                    <artifactId>maven-license-plugin</artifactId>
+                    <version>1.10.b1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <!-- Version pin because 0.7.5 fails on SONAR -->
+                    <version>0.7.4.201502262128</version>
+                    <executions>
+                        <execution>
+                            <id>jacoco-initialize</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                                <goal>prepare-agent-integration</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>jacoco-site</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>report</goal>
+                                <goal>report-integration</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <includes>
+                            <include>pl/wavesoftware/**</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <executions>
+                        <execution>
+                            <id>coveralls-default</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-license-headers</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jenkins</id>
+            <activation>
+                <property>
+                    <name>env.JENKINS_URL</name>
+                </property>
+            </activation>
+            <properties>
+                <ci.type>jenkins</ci.type>
+                <ci.build.url>${env.BUILD_URL}</ci.build.url>
+                <ci.build.number>${env.BUILD_NUMBER}</ci.build.number>
+                <ci.active>true</ci.active>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>travis</id>
+            <activation>
+                <property>
+                    <name>env.TRAVIS</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <ci.type>travis</ci.type>
+                <ci.build.url>https://travis-ci.org/${env.TRAVIS_REPO_SLUG}/job/${env.TRAVIS_JOB_ID}</ci.build.url>
+                <ci.build.number>${env.TRAVIS_JOB_NUMBER}</ci.build.number>
+                <ci.active>true</ci.active>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.eluder.coveralls</groupId>
+                        <artifactId>coveralls-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
