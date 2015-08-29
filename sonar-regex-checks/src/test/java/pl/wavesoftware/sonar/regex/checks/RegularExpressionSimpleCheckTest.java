@@ -80,6 +80,18 @@ public class RegularExpressionSimpleCheckTest {
     @Test
     public void testInvalidPattern2() {
         // given
+        check.pattern = "";
+
+        // then
+        expectExceptionCauseContains("Regular expression given must not be empty!");
+
+        // when
+        run();
+    }
+
+    @Test
+    public void testInvalidPattern3() {
+        // given
         check.pattern = "Alice has a cat (qwerty";
 
         // then

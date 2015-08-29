@@ -70,15 +70,15 @@ public class RegularExpressionSimpleCheck extends IssuableSubscriptionVisitor im
             "this is false and possitive search is performed. Default: false")
     protected boolean invertMode = false;
 
-    @SuppressWarnings({"FieldCanBeLocal", "CanBeFinal"})
+    @VisibleForTesting
     @RuleProperty(description = "Optional. The message that will be registered as issue if positive check fails. By default: " +
             "'" + DEFAULT_ISSUE_MESSAGE + "'")
-    private String issueMessage = DEFAULT_ISSUE_MESSAGE;
+    protected String issueMessage = DEFAULT_ISSUE_MESSAGE;
 
-    @SuppressWarnings({"FieldCanBeLocal", "CanBeFinal"})
+    @VisibleForTesting
     @RuleProperty(description = "Optional. The message that will be registered as issue if invert mode check fails. " +
             "By default: '" + DEFAULT_INVERT_MODE_ISSUE_MESSAGE + "'")
-    private String invertModeIssueMessage = DEFAULT_INVERT_MODE_ISSUE_MESSAGE;
+    protected String invertModeIssueMessage = DEFAULT_INVERT_MODE_ISSUE_MESSAGE;
 
     private Charset charset;
 
